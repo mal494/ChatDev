@@ -1,5 +1,5 @@
 """Shared helpers and base classes for configuration dataclasses."""
-
+from __future__ import annotations
 from dataclasses import dataclass, field, replace
 from typing import Any, Dict, Iterable, List, Mapping, MutableMapping, Sequence, TypeVar, ClassVar, Optional
 
@@ -10,7 +10,7 @@ TConfig = TypeVar("TConfig", bound="BaseConfig")
 class ConfigError(ValueError):
     """Raised when configuration parsing or validation fails."""
 
-    def __init__(self, message: str, path: str | None = None):
+    def __init__(self, message: str, path: Optional[str] = None):
         self.path = path
         full_message = f"{path}: {message}" if path else message
         super().__init__(full_message)
