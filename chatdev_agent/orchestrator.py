@@ -10,10 +10,18 @@ from collections.abc import Callable
 from typing import Any
 
 import requests
+from pathlib import Path
+
+# Ensure chatdev_agent and project root directories are in sys.path
+_CURRENT_DIR = Path(__file__).resolve().parent
+_PROJECT_ROOT = _CURRENT_DIR.parent
+for _path in [str(_CURRENT_DIR), str(_PROJECT_ROOT)]:
+    if _path not in sys.path:
+        sys.path.insert(0, _path)
 
 from agent import Agent
 from config import BASE_DIR, LOGS_DIR, REPO_PATH, log, make_llm
-from utils import (
+from chatdev_agent.utils import (
     extract_code_block,
     extract_json_safe,
     log_event,

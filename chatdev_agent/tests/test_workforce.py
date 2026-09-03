@@ -13,7 +13,10 @@ from pathlib import Path
 os.environ["CHATDEV_BACKEND"] = "offline"
 
 AGENT_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(AGENT_ROOT))
+PROJECT_ROOT = AGENT_ROOT.parent
+for _path in [str(AGENT_ROOT), str(PROJECT_ROOT)]:
+    if _path not in sys.path:
+        sys.path.insert(0, _path)
 
 from admin_boss import run_admin_diagnosis
 from agent import Agent
@@ -31,7 +34,7 @@ from agents import (
 )
 import config
 from orchestrator import Orchestrator
-from utils import extract_code_block, extract_json_safe
+from chatdev_agent.utils import extract_code_block, extract_json_safe
 
 
 class ConfigAndThemeTests(unittest.TestCase):

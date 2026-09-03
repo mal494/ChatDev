@@ -4,15 +4,24 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import time
 from collections.abc import Callable
+from pathlib import Path
 from typing import Any
 
 import requests
 
+# Ensure chatdev_agent and project root directories are in sys.path
+_CURRENT_DIR = Path(__file__).resolve().parent
+_PROJECT_ROOT = _CURRENT_DIR.parent
+for _path in [str(_CURRENT_DIR), str(_PROJECT_ROOT)]:
+    if _path not in sys.path:
+        sys.path.insert(0, _path)
+
 from config import ROLE_SYSTEM_PROMPTS, _offline_llm, make_llm
-from tools import TOOLS
-from utils import log_event
+from chatdev_agent.tools import TOOLS
+from chatdev_agent.utils import log_event
 
 
 class Agent:

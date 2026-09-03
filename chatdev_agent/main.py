@@ -12,6 +12,15 @@ if hasattr(sys.stdout, "reconfigure"):
     except Exception:
         pass
 
+from pathlib import Path
+
+# Ensure chatdev_agent and project root directories are in sys.path
+_CURRENT_DIR = Path(__file__).resolve().parent
+_PROJECT_ROOT = _CURRENT_DIR.parent
+for _path in [str(_CURRENT_DIR), str(_PROJECT_ROOT)]:
+    if _path not in sys.path:
+        sys.path.insert(0, _path)
+
 from admin_boss import run_admin_diagnosis
 from agents.coder import CoderAgent
 from agents.planner import PlannerAgent

@@ -41,6 +41,8 @@ dependencies = [
     "markdown>=3.10",
     "xhtml2pdf>=0.2.17",
     "mem0ai>=1.0.9",
+    "types-requests>=2.33.0.20260712",
+    "ollama>=0.6.2",
 ]
 
 [build-system]
@@ -63,3 +65,11 @@ filterwarnings = [
 
 [tool.uv]
 package = false
+
+[tool.pyright]
+extraPaths = ["chatdev_agent"]
+
+[tool.pyrefly]
+python-interpreter-path = ".venv/Scripts/python.exe"
+search-path = ["chatdev_agent"]
+

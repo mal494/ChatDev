@@ -8,14 +8,12 @@ if hasattr(sys.stdout, "reconfigure"):
     except Exception:
         pass
 
-# Ensure current and System/ directories are on path
+# Ensure current, parent, and System/ directories are on path
 current_dir = os.path.dirname(os.path.abspath(__file__))
-if current_dir not in sys.path:
-    sys.path.append(current_dir)
-
-system_dir = os.path.join(current_dir, "System")
-if system_dir not in sys.path:
-    sys.path.append(system_dir)
+parent_dir = os.path.dirname(current_dir)
+for _dir in [current_dir, parent_dir, os.path.join(current_dir, "System")]:
+    if _dir not in sys.path:
+        sys.path.append(_dir)
 
 try:
     from orchestrator import Orchestrator
