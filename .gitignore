@@ -1,26 +1,33 @@
 # Python
 __pycache__/
 *.pyc
-
+*.egg-info/
 # Virtual environments
 .venv/
 venv/
 env/
-
 # uv
 .uv-cache/
-
 # IDEs
 .idea/
 .vscode/
 frontend/.vscode/
-
 # OS
 .DS_Store
-
+Thumbs.db
 # Environment
 .env
-
+.env.*
+!.env.example
+!.env.docker
+# Test / tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+# Build output
+dist/
 # Project Specific
 logs/
 node_modules/
@@ -28,4 +35,3 @@ data/
 temp/
 WareHouse/
 AI_Data/
-

@@ -57,12 +57,13 @@ jobs:
         run: uv sync
       
       - name: Run YAML validation
+        id: validate
         run: uv run python tools/validate_all_yamls.py
       
       - name: Report validation results
         if: always()
         run: |
-          if [ $? -eq 0 ]; then
+          if [ "${{ steps.validate.outcome }}" = "success" ]; then
             echo "All YAML workflow files passed validation"
           else
             echo "YAML validation failed - check the logs above for details"
