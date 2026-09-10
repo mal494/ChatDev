@@ -51,7 +51,7 @@ See our paper in [Multi-Agent Collaboration via Evolving Orchestration](https://
   <img src='./assets/ier.png' width=220>
   </p>
 
-• January 25, 2024: We have integrated Experiential Co-Learning Module into ChatDev. Please see the [Experiential Co-Learning Guide](wiki.md#co-tracking).
+• January 25, 2024: We have integrated Experiential Co-Learning Module into ChatDev. Please see the [Experiential Co-Learning Guide](https://github.com/OpenBMB/ChatDev/blob/chatdev1.0/wiki.md#co-tracking).
 
 • December 28, 2023: We present Experiential Co-Learning, an innovative approach where instructor and assistant agents accumulate shortcut-oriented experiences to effectively solve new tasks, reducing repetitive errors and enhancing efficiency.  Check out our preprint paper at https://arxiv.org/abs/2312.17025 and this technique will soon be integrated into ChatDev.
   <p align="center">
@@ -67,24 +67,24 @@ See our paper in [Multi-Agent Collaboration via Evolving Orchestration](https://
   <img src='./assets/increment.png' width=700>
   </p>
 
-• October 26, 2023: ChatDev is now supported with Docker for safe execution (thanks to contribution from [ManindraDeMel](https://github.com/ManindraDeMel)). Please see [Docker Start Guide](wiki.md#docker-start).
+• October 26, 2023: ChatDev is now supported with Docker for safe execution (thanks to contribution from [ManindraDeMel](https://github.com/ManindraDeMel)). Please see [Docker Start Guide](https://github.com/OpenBMB/ChatDev/blob/chatdev1.0/wiki.md#docker-start).
   <p align="center">
   <img src='./assets/docker.png' width=400>
   </p>
   
-• September 25, 2023: The **Git** mode is now available, enabling the programmer <img src='visualizer/static/figures/programmer.png' height=20> to utilize Git for version control. To enable this feature, simply set ``"git_management"`` to ``"True"`` in ``ChatChainConfig.json``. See [guide](wiki.md#git-mode).
+• September 25, 2023: The **Git** mode is now available, enabling the programmer <img src='visualizer/static/figures/programmer.png' height=20> to utilize Git for version control. To enable this feature, simply set ``"git_management"`` to ``"True"`` in ``ChatChainConfig.json``. See [guide](https://github.com/OpenBMB/ChatDev/blob/chatdev1.0/wiki.md#git-mode).
   <p align="center">
   <img src='./assets/github.png' width=600>
   </p>
 
 • September 20, 2023: The **Human-Agent-Interaction** mode is now available! You can get involved with the ChatDev team by playing the role of reviewer <img src='visualizer/static/figures/reviewer.png' height=20> and making suggestions to the programmer <img src='visualizer/static/figures/programmer.png' height=20>;
-  try ``python3 run.py --task [description_of_your_idea] --config "Human"``. See [guide](wiki.md#human-agent-interaction) and [example](WareHouse/Gomoku_HumanAgentInteraction_20230920135038).
+  try ``python3 run.py --task [description_of_your_idea] --config "Human"``. See [guide](https://github.com/OpenBMB/ChatDev/blob/chatdev1.0/wiki.md#human-agent-interaction) and [example](WareHouse/Gomoku_HumanAgentInteraction_20230920135038).
   <p align="center">
   <img src='./assets/Human_intro.png' width=600>
   </p>
 
 • September 1, 2023: The **Art** mode is available now! You can activate the designer agent <img src='visualizer/static/figures/designer.png' height=20> to generate images used in the software;
-  try ``python3 run.py --task [description_of_your_idea] --config "Art"``. See [guide](wiki.md#art) and [example](WareHouse/gomokugameArtExample_THUNLP_20230831122822).
+  try ``python3 run.py --task [description_of_your_idea] --config "Art"``. See [guide](https://github.com/OpenBMB/ChatDev/blob/chatdev1.0/wiki.md#art) and [example](WareHouse/gomokugameArtExample_THUNLP_20230831122822).
   
 • August 28, 2023: The system is publicly available.
 
@@ -105,7 +105,7 @@ See our paper in [Multi-Agent Collaboration via Evolving Orchestration](https://
 
 *   **OS**: macOS / Linux / WSL / Windows
 *   **Python**: 3.12+
-*   **Node.js**: 18+
+*   **Node.js**: 20.19+ (or 22.12+) — required by Vite 7
 *   **Package Manager**: [uv](https://docs.astral.sh/uv/)
 
 ### 📦 Installation
@@ -117,7 +117,7 @@ See our paper in [Multi-Agent Collaboration via Evolving Orchestration](https://
 
 2.  **Frontend Dependencies** (Vite + Vue 3):
     ```bash
-    cd frontend && npm install
+    cd frontend && npm ci
     ```
 
 ### 🔑 Configuration
@@ -128,6 +128,23 @@ See our paper in [Multi-Agent Collaboration via Evolving Orchestration](https://
     ```
 *   **Model Keys**: Set `API_KEY` and `BASE_URL` in `.env` for your LLM provider.
 *   **YAML placeholders**: Use `${VAR}`（e.g., `${API_KEY}`）in configuration files to reference these variables.
+
+#### Key environment variables
+
+> `.env.example` documents **every** variable the code reads, with one-line descriptions. The most common ones:
+
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `BASE_URL` | `http://localhost:11434/v1` | LLM provider base URL (OpenAI, Gemini, LM Studio, Ollama, ...) |
+| `API_KEY` | `ollama` | LLM provider API key |
+| `SERPER_DEV_API_KEY` | _(none)_ | Optional — web search tool (https://serper.dev) |
+| `JINA_API_KEY` | _(none)_ | Optional — web reading tool (https://jina.ai) |
+| `CORS_ALLOW_ORIGINS` | `localhost:5173`, `127.0.0.1:5173` | Comma-separated allowed CORS origins |
+| `VITE_API_BASE_URL` | `http://localhost:6400` | API base URL used by the frontend dev server / Vite proxy |
+| `PORT` / `BACKEND_BIND` | `6400` / `0.0.0.0` | Backend listen port / host |
+| `ENVIRONMENT` | _(unset)_ | Set to `development` for verbose 500 error payloads |
+| `VUEGRAPHS_DB_PATH` | `data/vuegraphs.db` | SQLite DB for the visual graph editor |
+| `LOG_LEVEL` | `INFO` | Server & workflow log level (`SERVER_LOG_FILE` / `WORKFLOW_LOG_FILE` control destinations) |
 
 ### ⚡️ Run the Application
 
@@ -210,7 +227,7 @@ Alternatively, you can run the entire application using Docker Compose. This met
 
 1.  **Prerequisites**:
     *   [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) installed.
-    *   Ensure you have a `.env` file in the project root for your API keys.
+    *   **Optional (recommended)**: copy `.env.example` to `.env` and set your LLM provider credentials. The stack also runs with built-in defaults if you skip this.
 
 2.  **Build and Run**:
     ```bash

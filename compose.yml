@@ -10,10 +10,18 @@ services:
     ports:
       - "6400:6400"
     env_file:
-      - .env
+      # .env is optional — copy .env.example to .env to configure an LLM
+      # provider. Without it, the backend still boots with built-in defaults.
+      - path: .env
+        required: false
       - .env.docker
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:6400/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
     restart: unless-stopped
-
   frontend:
     build:
       context: ./frontend
@@ -26,7 +34,8 @@ services:
     ports:
       - "${FRONTEND_PORT:-5173}:5173"
     env_file:
-      - .env
+      - path: .env
+        required: false
       - .env.docker
     depends_on:
       - backend
